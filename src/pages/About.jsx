@@ -6,7 +6,7 @@ const About = () => {
       <div className="text-center mb-24">
         <h1 className="text-6xl font-black text-white mb-8">Our Vision</h1>
         <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-          At BrandSpark AI, we believe every brand has a unique story waiting to be told. Our mission is to democratize high-end design and strategy through the power of artificial intelligence.
+          At Idea2Brand, we believe every brand has a unique story waiting to be told. Our mission is to democratize high-end design and strategy through the power of artificial intelligence.
         </p>
       </div>
 
@@ -19,7 +19,7 @@ const About = () => {
           <div className="flex gap-8 py-8 border-t border-slate-800">
             <div>
               <div className="text-3xl font-black text-white">500k+</div>
-              <div className="text-slate-500 text-sm italic uppercase tracking-widest">Brands Sparked</div>
+              <div className="text-slate-500 text-sm italic uppercase tracking-widest">Brands Launched</div>
             </div>
             <div>
               <div className="text-3xl font-black text-white">120+</div>
@@ -31,7 +31,7 @@ const About = () => {
           <div className="absolute inset-0 bg-blue-600/20 blur-3xl -z-10 rounded-full"></div>
           <div className="aspect-square bg-slate-800/50 rounded-[4rem] border border-slate-700 p-12 flex flex-col justify-center">
             <blockquote className="text-2xl text-white font-medium italic mb-6">
-              "BrandSpark didn't just give us a logo; they gave us a soul."
+              "Idea2Brand didn't just give us a logo; they gave us a soul."
             </blockquote>
             <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">— Sarah Chen, CEO of Luminar</p>
           </div>

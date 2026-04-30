@@ -4,14 +4,14 @@ const Docs = () => {
   const sections = [
     {
       id: "engine",
-      title: "The BrandSpark Engine",
+      title: "The Idea2Brand Engine",
       content: "Our AI generation engine doesn't just pick random names. It analyzes the 'seed' of your brand name to generate consistent, professional identity packs. Every time you entered 'clothing', the AI synchronized its algorithms to produce a specific set of design tokens tailored for that visionary path.",
       tip: "Use clear, simple names for the best results. The engine interprets industry keywords naturally."
     },
     {
       id: "design",
       title: "Visual Brand Boards",
-      content: "BrandSpark designs more than a banner. The Identity tab produces a full design board including a 'Geometric Logo Mark', a 4-color 'Integrated Palette', and 'Typography Pairs'. These are real-world design tokens you can use to build your website, app, or physical products.",
+      content: "Idea2Brand designs more than a banner. The Identity tab produces a full design board including a 'Geometric Logo Mark', a 4-color 'Integrated Palette', and 'Typography Pairs'. These are real-world design tokens you can use to build your website, app, or physical products.",
       tags: ["Logo Concepts", "Exact Hex Codes", "Font Lab"]
     },
     {
@@ -23,7 +23,7 @@ const Docs = () => {
     {
       id: "beta",
       title: "Early Access & Persistence",
-      content: "Your work is automatically saved to your browser's local storage. This allows you to revisit 'Recent Sparks' even after a refresh. To export your brand for professional use, join our Early Access program to receive a high-resolution PDF Brand Bible.",
+      content: "Your work is automatically saved to your browser's local storage. This allows you to revisit 'Recent Brands' even after a refresh. To export your brand for professional use, join our Early Access program to receive a high-resolution PDF Brand Bible.",
       linkText: "Get Early Access Now →"
     }
   ];
@@ -39,7 +39,7 @@ const Docs = () => {
           <span className="text-slate-500">Creative Engine.</span>
         </h1>
         <p className="text-slate-400 text-lg md:text-xl max-w-2xl font-light">
-          Learn how BrandSpark AI transforms simple ideas into high-fidelity business identities.
+          Learn how Idea2Brand transforms simple ideas into high-fidelity business identities.
         </p>
       </div>
 

@@ -1,8 +1,8 @@
-# 🚀 BrandSpark AI: Ignite Your Visual Identity
+# 🚀 Idea2Brand: Ignite Your Visual Identity
 
-**BrandSpark AI** is a premium, all-in-one "Brand Launchpad" designed to turn a single idea into a professional business identity in seconds. Built for visionaries who want to skip the jargon and start building.
+**Idea2Brand** is a premium, all-in-one "Brand Launchpad" designed to turn a single idea into a professional business identity in seconds. Built for visionaries who want to skip the jargon and start building.
 
-![BrandSpark Hero](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000)
+![Idea2Brand Hero](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000)
 
 ## ✨ Core Features
 
@@ -47,4 +47,4 @@
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-Built with ❤️ by the BrandSpark AI Team.
+Built with ❤️ by the Idea2Brand Team.

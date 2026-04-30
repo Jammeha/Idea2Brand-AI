@@ -57,7 +57,7 @@ function App() {
         {/* Hero Section */}
         <section className="max-w-6xl mx-auto text-center mb-24 md:mb-32">
           <div className="inline-block px-4 py-1.5 mb-8 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-[10px] md:text-xs font-bold uppercase tracking-widest animate-pulse">
-            Introducing BrandSpark 2.0
+            Introducing Idea2Brand 2.0
           </div>
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[1.1] md:leading-[0.9]">
             Ignite Your <br />
@@ -102,13 +102,13 @@ function App() {
                     disabled={isGenerating || !brandName}
                     className="w-full py-4 bg-white text-slate-950 rounded-xl font-black text-xs md:text-sm uppercase tracking-widest hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isGenerating ? 'Analyzing Market Trends...' : 'Preview Brand Spark'}
+                    {isGenerating ? 'Analyzing Market Trends...' : 'Preview My Brand'}
                   </button>
                 </div>
 
                 {brandHistory.length > 0 && (
                    <div className="pt-8 border-t border-slate-800">
-                     <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Recent Sparks</h4>
+                     <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Recent Brands</h4>
                      <div className="flex flex-wrap gap-3">
                        {brandHistory.map((h, i) => (
                          <div key={i} onClick={() => { setAiResult(h); setBrandName(h.name); }} className="flex gap-3 items-center px-4 py-2 bg-slate-950/30 border border-slate-800 rounded-full cursor-pointer hover:border-blue-500/50 transition-all group">
@@ -350,7 +350,7 @@ function App() {
           className="text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 cursor-pointer"
           onClick={() => setCurrentPage('home')}
         >
-          BrandSpark AI
+          Idea2Brand
         </div>
         <div className="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-[0.2em] text-slate-400">
           <button onClick={() => setCurrentPage('home')} className={`hover:text-blue-400 transition-colors ${currentPage === 'home' ? 'text-blue-400' : ''}`}>Home</button>
@@ -376,13 +376,13 @@ function App() {
 
       <footer className="border-t border-slate-800 py-12 px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-xl font-bold text-white">BrandSpark.ai</div>
+          <div className="text-xl font-bold text-white">Idea2Brand</div>
           <div className="flex space-x-8 md:space-x-12 text-slate-500 text-xs font-medium">
             <a href="#" className="hover:text-blue-400 transition-colors">Twitter</a>
             <a href="#" className="hover:text-blue-400 transition-colors">LinkedIn</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy</a>
           </div>
-          <div className="text-slate-600 text-[10px] md:text-xs tracking-widest uppercase italic font-bold">© 2026 BrandSpark AI. FULLY FUNCTIONAL MVP.</div>
+          <div className="text-slate-600 text-[10px] md:text-xs tracking-widest uppercase italic font-bold">© 2026 Idea2Brand. FULLY FUNCTIONAL MVP.</div>
         </div>
       </footer>
     </div>

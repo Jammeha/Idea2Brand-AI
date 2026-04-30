@@ -17,7 +17,7 @@ const BetaModal = ({ isOpen, onClose, onSuccess }) => {
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
           </div>
           <h2 className="text-3xl font-bold text-white mb-4">Secure Early Access</h2>
-          <p className="text-slate-400 mb-8">Be the first to harness the full power of BrandSpark 2.0. Join our exclusive early access list today.</p>
+          <p className="text-slate-400 mb-8">Be the first to harness the full power of Idea2Brand 2.0. Join our exclusive early access list today.</p>
           
           <form className="space-y-4" onSubmit={(e) => { 
             e.preventDefault(); 
