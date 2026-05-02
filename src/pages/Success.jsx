@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Success = () => {
+const Success = ({ onReturn }) => {
   return (
     <div className="pt-32 pb-20 px-4 min-h-screen flex items-center justify-center">
       <div className="max-w-2xl w-full text-center">
@@ -29,7 +29,7 @@ const Success = () => {
         </div>
         
         <button 
-          onClick={() => window.location.href = '#brand-maker'}
+          onClick={onReturn}
           className="px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest transition-all"
         >
           Return to Generator

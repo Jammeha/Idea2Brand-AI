@@ -5,14 +5,16 @@ import About from './pages/About'
 import Docs from './pages/Docs'
 import Success from './pages/Success'
 import BetaModal from './components/BetaModal'
-import { generateBrandContext } from './utils/aiEngine'
+import { generateBrandWithAI } from './utils/aiEngine'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [scrolled, setScrolled] = useState(false)
   const [brandName, setBrandName] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+  const [generationStatus, setGenerationStatus] = useState('')
   const [aiResult, setAiResult] = useState(null)
+  const [error, setError] = useState(null)
   const [isBetaOpen, setIsBetaOpen] = useState(false)
   const [contactSuccess, setContactSuccess] = useState(false)
   const [brandHistory, setBrandHistory] = useState(() => {
@@ -32,17 +34,28 @@ function App() {
     localStorage.setItem('brand_history', JSON.stringify(brandHistory))
   }, [brandHistory])
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!brandName) return
     setIsGenerating(true)
+    setGenerationStatus('Initializing Engine...')
+    setError(null)
     setAiResult(null)
-    setTimeout(() => {
-      const result = generateBrandContext(brandName)
+    
+    try {
+      const result = await generateBrandWithAI(brandName, (status) => {
+        setGenerationStatus(status);
+      })
       setIsGenerating(false)
+      setGenerationStatus('')
       setAiResult(result)
-      setBrandHistory(prev => [result, ...prev].slice(0, 5))
+      setBrandHistory(prev => [result, ...prev].filter((b, i, a) => a.findIndex(t => t.name === b.name) === i).slice(0, 5))
       setActiveTab('identity')
-    }, 2500)
+    } catch (err) {
+      console.error(err)
+      setError(err.message || "Something went wrong during generation.")
+      setIsGenerating(false)
+      setGenerationStatus('')
+    }
   }
 
   const handleContactSubmit = (e) => {
@@ -102,9 +115,23 @@ function App() {
                     disabled={isGenerating || !brandName}
                     className="w-full py-4 bg-white text-slate-950 rounded-xl font-black text-xs md:text-sm uppercase tracking-widest hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isGenerating ? 'Analyzing Market Trends...' : 'Preview My Brand'}
+                    {isGenerating ? (generationStatus || 'AI is Thinking...') : 'Preview My Brand'}
                   </button>
+
+                  <div className="pt-6 border-t border-slate-800/50 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                      <span className="text-[9px] font-mono tracking-widest text-slate-400 uppercase">Engine: Ultra-Stable (Demo Mode)</span>
+                    </div>
+                    <span className="text-[9px] font-mono tracking-widest text-slate-500 uppercase">Node: Local-01</span>
+                  </div>
                 </div>
+
+                {error && (
+                  <div className="mb-8 p-4 bg-red-500/10 border border-red-500/30 rounded-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                    <p className="text-red-400 text-xs font-medium text-center">{error}</p>
+                  </div>
+                )}
 
                 {brandHistory.length > 0 && (
                    <div className="pt-8 border-t border-slate-800">
@@ -290,18 +317,6 @@ function App() {
           </div>
         </section>
 
-        {/* Pricing Section */}
-        <section id="pricing" className="max-w-7xl mx-auto mb-32 md:mb-40 px-4">
-          <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Transparent Pricing</h2>
-            <p className="text-slate-400 text-base md:text-lg">Scalable plans for brands of all sizes.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <PricingCard title="Starter" price="0" features={["3 Brand Previews", "Basic Content Engine", "Community Support"]} />
-            <PricingCard recommended title="Professional" price="49" features={["Unlimited Previews", "Full Identity Suite", "Advanced Social Strategy", "Priority Support"]} />
-            <PricingCard title="Enterprise" price="199" features={["White-label Solutions", "Custom AI Training", "API Access", "Dedicated Manager"]} />
-          </div>
-        </section>
 
         {/* Contact Section */}
         <section id="contact" className="max-w-4xl mx-auto mb-32 md:mb-40 px-4">
@@ -347,17 +362,23 @@ function App() {
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled ? 'bg-[#020617]/80 backdrop-blur-md border-slate-800' : 'bg-transparent border-transparent'} py-3 md:py-4 px-4 md:px-8 flex justify-between items-center`}>
         <div 
-          className="text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 cursor-pointer"
+          className="flex items-center gap-3 cursor-pointer group"
           onClick={() => setCurrentPage('home')}
         >
-          Idea2Brand
+          <div className="text-xl md:text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+            Idea2Brand
+          </div>
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 translate-y-0.5">
+            <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">Live</span>
+          </div>
         </div>
         <div className="hidden md:flex space-x-8 font-bold text-xs uppercase tracking-[0.2em] text-slate-400">
           <button onClick={() => setCurrentPage('home')} className={`hover:text-blue-400 transition-colors ${currentPage === 'home' ? 'text-blue-400' : ''}`}>Home</button>
           <button onClick={() => setCurrentPage('about')} className={`hover:text-blue-400 transition-colors ${currentPage === 'about' ? 'text-blue-400' : ''}`}>About</button>
           <button onClick={() => setCurrentPage('docs')} className={`hover:text-blue-400 transition-colors ${currentPage === 'docs' ? 'text-blue-400' : ''}`}>Docs</button>
           <a href="#brand-maker" onClick={() => setCurrentPage('home')} className="hover:text-blue-400 transition-colors">Generator</a>
-          <a href="#pricing" onClick={() => setCurrentPage('home')} className="hover:text-blue-400 transition-colors">Pricing</a>
+          <a href="#features" onClick={() => setCurrentPage('home')} className="hover:text-blue-400 transition-colors">Features</a>
         </div>
         <button 
           onClick={() => setIsBetaOpen(true)}
@@ -371,7 +392,7 @@ function App() {
         {currentPage === 'home' && renderHome()}
         {currentPage === 'about' && <About />}
         {currentPage === 'docs' && <Docs />}
-        {currentPage === 'success' && <Success />}
+        {currentPage === 'success' && <Success onReturn={() => { setCurrentPage('home'); window.scrollTo(0, 0); }} />}
       </div>
 
       <footer className="border-t border-slate-800 py-12 px-8">

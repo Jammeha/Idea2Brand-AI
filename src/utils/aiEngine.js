@@ -1,55 +1,97 @@
-const adjectives = ["Bold", "Iconic", "Ethereal", "Dynamic", "Minimalist", "Aggressive", "Serene", "Quantum", "Primal", "Luminous"];
-const colors = [
-  { name: "Cyber Neon", hex: ["#00f2fe", "#4facfe", "#7117ea", "#ea6227"] },
-  { name: "Midnight Rose", hex: ["#434343", "#000000", "#e91e63", "#9c27b0"] },
-  { name: "Arctic Frost", hex: ["#e6e9f0", "#eef1f5", "#70e1f5", "#ffd194"] },
-  { name: "Solar Flare", hex: ["#f83600", "#f9d423", "#ff4e50", "#f9d423"] },
-  { name: "Deep Forest", hex: ["#134e5e", "#71b280", "#2c3e50", "#000000"] },
-];
-const tones = ["Professional & Cold", "Friendly & Vibrant", "Luxury & Minimal", "Cutting-edge & Experimental", "Organic & Warm"];
-const logos = ["circle", "square", "triangle", "abstract", "minimal"];
+/**
+ * Local AI Engine for Idea2Brand
+ * Provides a high-fidelity simulation of branding logic to ensure 100% uptime.
+ */
 
-export const generateBrandContext = (input) => {
-  const name = input; 
-  const seed = name.length % adjectives.length;
-  const adj = adjectives[seed];
-  const colorSeed = (name.length * 7) % colors.length;
-  const toneSeed = (name.length * 3) % tones.length;
-  const logoSeed = (name.length * 2) % logos.length;
+const INDUSTRIES = {
+  tech: {
+    taglines: ["The future, decoded.", "Engineering tomorrow's giants.", "Intelligence by design.", "Simplicity in every bit."],
+    colors: [
+      { name: "Cyber Volt", hex: ["#0ea5e9", "#6366f1", "#4f46e5", "#1e1b4b"] },
+      { name: "Deep Matrix", hex: ["#2dd4bf", "#0d9488", "#115e59", "#042f2e"] }
+    ],
+    fonts: { primary: "Inter", secondary: "Space Mono" }
+  },
+  creative: {
+    taglines: ["Artistry in motion.", "The canvas of innovation.", "Design that breathes.", "Visionary aesthetics."],
+    colors: [
+      { name: "Neon Sunset", hex: ["#f43f5e", "#d946ef", "#8b5cf6", "#4c1d95"] },
+      { name: "Vibrant Pulse", hex: ["#fbbf24", "#f97316", "#ea580c", "#7c2d12"] }
+    ],
+    fonts: { primary: "Outfit", secondary: "Crimson Text" }
+  },
+  sustainable: {
+    taglines: ["Green by nature.", "Growth without compromise.", "Earth-first innovation.", "Eternal ecology."],
+    colors: [
+      { name: "Emerald Nexus", hex: ["#10b981", "#059669", "#064e3b", "#022c22"] },
+      { name: "Oceanic Flow", hex: ["#38bdf8", "#0ea5e9", "#075985", "#0c4a6e"] }
+    ],
+    fonts: { primary: "Public Sans", secondary: "Bricolage Grotesque" }
+  },
+  luxury: {
+    taglines: ["Elegance redefined.", "The pinnacle of prestige.", "Timeless sophistication.", "Exclusivity by nature."],
+    colors: [
+      { name: "Gold Standard", hex: ["#fbbf24", "#d97706", "#92400e", "#451a03"] },
+      { name: "Midnight Onyx", hex: ["#475569", "#1e293b", "#0f172a", "#020617"] }
+    ],
+    fonts: { primary: "Playfair Display", secondary: "Montserrat" }
+  }
+};
+
+const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+export const generateBrandWithAI = async (brandName, onProgress) => {
+  // Simulate network progress
+  const steps = [
+    "Analyzing Brand DNA...",
+    "Scanning Design Trends...",
+    "generating Color Harmonies...",
+    "Drafting Mission Statement...",
+    "Finalizing Visual Board..."
+  ];
+
+  for (let i = 0; i < steps.length; i++) {
+    if (onProgress) onProgress(steps[i]);
+    await new Promise(r => setTimeout(r, 400)); 
+  }
+
+  // Pure random selection for maximum variety
+  const indKey = getRandom(Object.keys(INDUSTRIES));
+  const data = INDUSTRIES[indKey];
+  const palette = getRandom(data.colors);
 
   return {
-    id: Date.now(),
-    name: name,
+    name: brandName,
     identity: {
-      tagline: `${adj} Style for Everyone.`,
-      description: `A modern brand built on ${adj.toLowerCase()} ideas and a passion for great design.`,
-      tone: tones[toneSeed],
-      colors: colors[colorSeed],
-      logoStyle: logos[logoSeed],
-      typography: {
-        primary: "Inter Tight",
-        secondary: "Space Mono",
-        vibe: "Clean & Modern"
-      }
+      tagline: getRandom(data.taglines),
+      description: `A forward-thinking ${indKey} venture focused on redefining how we interact with modern ${brandName} solutions using ${indKey}-centric design principles.`,
+      logoStyle: getRandom(["circle", "triangle", "abstract", "square"]),
+      colors: palette,
+      typography: data.fonts
     },
     mission: {
-      about: `${name} was started because we believe that professional design shouldn't be a struggle. We take the hard work out of branding so you can focus on your vision.`,
-      vision: `To help every creator build a ${adj.toLowerCase()} brand that stands out in the real world.`,
+      about: getRandom([
+        `${brandName} was founded on the principle that ${indKey} excellence should be accessible, beautiful, and fundamentally transformative.`,
+        `Our vision for ${brandName} is to bridge the gap between complex ${indKey} systems and human-centric design.`,
+        `At the heart of ${brandName} lies a commitment to pushing the boundaries of ${indKey} for a global audience.`
+      ])
     },
     copy: {
-      heroTitle: `Launch your ${name} journey today.`,
-      elevatorPitch: `${name} uses smart AI to help you create your brand identity instantly and get your business growing faster than ever.`,
-      cta: `Get Started with ${name}`
+      elevatorPitch: getRandom([
+        `We are building the future of ${indKey} through ${brandName}, combining radical simplicity with professional-grade results.`,
+        `${brandName} is the definitive ${indKey} platform designed for those who demand excellence without the overhead.`,
+        `Reimagining the ${indKey} landscape with ${brandName}—the only tool you need to stay ahead of the curve.`
+      ])
     },
     social: [
-      { platform: "Instagram", post: `Finally, a brand that looks as good as it feels. Say hello to ${name}. ✨ #NewBrand` },
-      { platform: "Twitter", post: `We just launched ${name}! Built for the future of style. Check us out! 🚀` },
+      { platform: "Twitter", post: `Just launched ${brandName}! ${getRandom(data.taglines)} #Startup #Branding` },
+      { platform: "LinkedIn", post: `Grateful to share the vision for ${brandName}. We're tackling ${indKey} challenges with a fresh perspective.` },
+      { platform: "Instagram", post: `The visual soul of ${brandName}. Crafted with ${indKey} excellence in mind. #DesignInspiration` }
     ],
     strategy: [
-      { goal: "Getting Noticed", action: "Share your story on social media to build a real connection with fans." },
-      { goal: "Building Trust", action: "Collab with people who love your niche to spread the word naturally." },
-      { goal: "Fast Growth", action: "Give early supporters a special 'founder' badge or discount." },
-    ],
-    timestamp: new Date().toLocaleDateString()
+      { goal: getRandom(["Market Entry", "Beta Launch", "Initial Hook"]), action: "Launch the MVP to a selected circle of beta users for feedback." },
+      { goal: getRandom(["Visual Dominance", "Brand Presence", "Aesthetic Edge"]), action: "Execute a cross-platform visual campaign using the new palette." },
+      { goal: getRandom(["Community Growth", "User Sync", "Network Effect"]), action: "Host a digital summit focusing on the future of this niche." }
+    ]
   };
 };
