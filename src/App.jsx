@@ -6,6 +6,7 @@ import Docs from './pages/Docs'
 import Success from './pages/Success'
 import BetaModal from './components/BetaModal'
 import { generateBrandWithAI } from './utils/aiEngine'
+import { exportBrandToPDF } from './utils/BrandExporter'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
@@ -16,6 +17,7 @@ function App() {
   const [aiResult, setAiResult] = useState(null)
   const [error, setError] = useState(null)
   const [isBetaOpen, setIsBetaOpen] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
   const [contactSuccess, setContactSuccess] = useState(false)
   const [brandHistory, setBrandHistory] = useState(() => {
     const saved = localStorage.getItem('brand_history')
@@ -33,6 +35,19 @@ function App() {
   useEffect(() => {
     localStorage.setItem('brand_history', JSON.stringify(brandHistory))
   }, [brandHistory])
+
+  const handleExport = async () => {
+    if (!aiResult) return;
+    setIsExporting(true);
+    try {
+      await exportBrandToPDF(aiResult);
+    } catch (err) {
+      console.error("Export failed:", err);
+      setError("Failed to generate PDF. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   const handleGenerate = async () => {
     if (!brandName) return
@@ -285,8 +300,12 @@ function App() {
                     </div>
 
                     <div className="sticky bottom-0 left-0 right-0 pt-6 bg-slate-950/90 backdrop-blur-sm shrink-0">
-                      <button onClick={() => setIsBetaOpen(true)} className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20">
-                         Generate Full Brand Bible
+                      <button 
+                        onClick={handleExport} 
+                        disabled={isExporting}
+                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20 disabled:opacity-50"
+                      >
+                         {isExporting ? 'Generating Brand Bible...' : 'Download Brand Bible'}
                       </button>
                     </div>
                   </div>
