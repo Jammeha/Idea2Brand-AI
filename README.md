@@ -52,8 +52,13 @@ Idea2Brand AI is an open-source AI platform built to support visibility initiati
    cd Idea2Brand-AI
    ```
 2. **Install dependencies**:
+   Install root front-end/client dependencies:
    ```bash
    npm install
+   ```
+   Install backend/server dependencies:
+   ```bash
+   npm install --prefix server
    ```
 3. **Environment Setup**:
    Create a `.env` file in the root folder with the following variables:
